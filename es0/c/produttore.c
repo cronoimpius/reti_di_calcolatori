@@ -26,17 +26,16 @@ int main(int argc, char* argv[]){
 	}
 	
 	do{
-        printf("Inserisci la nuova riga\n");
+        	printf("Inserisci la nuova riga\n");
 		ch= gets (riga); 
 		/* la gets legge tutta la riga, separatori inclusi, e trasforma il fine 
 	       linea in fine stringa */
 		// aggiungo il fine linea
-		 
-		if(ch){
-            riga[strlen(riga)+1]='\0';  
-            riga[strlen(riga)]='\n'; 
-            written = write(fd, riga, strlen(riga));
-        }
+		 if(ch){
+            		riga[strlen(riga)+1]='\0';  
+            		riga[strlen(riga)]='\n'; 
+            		written = write(fd, riga, strlen(riga));
+		}
             // uso della primitiva
 		if (written < 0){
 			perror("P0: errore nella scrittura sul file");
