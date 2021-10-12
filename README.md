@@ -3,15 +3,15 @@ Official repo of group 17 for lab exercises
 
 Scheduling of lab exercises
 
-Exercise number | description | consigned in (date) 
+Exercise number | Description | Consigned in (date) 
 ----------------|-------------|--------------------
 0 | Reading and writing a file in Java and C | 12/10/2021
-1
-2
-3
-4
-5
-6
-7
-8
-9
+1 | Connectionless socket in Java |
+2 | Connection oriented socket in Java |
+3 | Socket in C (for noob) |
+4 | Socket in C (pro version) |
+5 | Quiz |
+6 | Java RMI |
+7 | Java RMI remote references |
+8 | RPC (Remote Procedure Call) |
+9 | RPC initialize data structure on server |
