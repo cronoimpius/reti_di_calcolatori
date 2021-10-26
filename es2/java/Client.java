@@ -132,7 +132,7 @@ public class Client {
 							try{
 								System.out.println("Inizio la trasmissione di " + f.getName());
 								inFile= new FileInputStream(f.getAbsolutePath());
-								FileUtility.trasferisci_N_byte_file_binario(new DataInputStream(inFile), outSock, f.length());
+								FileUtility.trasferisci_TOT_byte_file_binario(new DataInputStream(inFile), outSock, f.length());
 								inFile.close();
 								System.out.println("Trasmissione di " + f.getName() + " terminata, file salvato sul server\n ");
 

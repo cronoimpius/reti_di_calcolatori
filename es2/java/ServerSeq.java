@@ -129,7 +129,7 @@ public class ServerSeq {
 		    					FileOutputStream outFile = new FileOutputStream(nomeFile);
 		                        System.out.println("Ricevo il file " + nomeFile + " di dimensione "+sizeF);
 		    					long start = System.currentTimeMillis();
-		    					FileUtility.trasferisci_N_byte_file_binario(inSock,
+		    					FileUtility.trasferisci_TOT_byte_file_binario(inSock,
 		    							new DataOutputStream(outFile),sizeF);
                                 long end =System.currentTimeMillis();
                                 System.out.println("--Tempo impiegato "+(end-start)+" --\n");
