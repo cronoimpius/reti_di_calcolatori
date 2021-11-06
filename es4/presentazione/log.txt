@@ -1,0 +1,40 @@
+file:1mb parola:mezzo
+fscanf: 0.028 sec eliminazioni: 92/104
+byte: 4.41 sec  eliminazioni: 98/104
+
+file 10mb parola: mezzo
+fscanf: 0.75 sec eliminazioni: 920/1040
+byte: 29.9 eliminazioni: 980/1040
+
+file 100mb parola:mezzo
+fscanf: 4.84 sec eliminazioni: 9200/10400
+byte: 301 eliminazioni: 9800/10400
+
+file 1gb parola:mezzo
+fscanf: 54 sec eliminazioni: 92000/104000
+byte: eliminazioni: non finisce di trovare parole
+
+-------------------------------------------------------------
+
+file:1mb parola:parole
+fscanf: 0.021 sec eliminazioni: 130/158
+byte: 1.2 sec  eliminazioni: 134/158
+
+file 10mb parola:parole
+fscanf: 0.20 sec eliminazioni: 1300/1580
+byte: 12.12 eliminazioni: 1340/1580
+
+file 100mb parola:parole
+fscanf: 2.3 sec eliminazioni: 13000/15800
+byte: 124.3 eliminazioni: 13400/15800
+
+file 1gb parola:parole
+fscanf: 23 sec eliminazioni: 130000/158000
+byte: eliminazioni: non finisce di trovare parole
+
+-------------------------------------------------------------
+
+
+
+
+
