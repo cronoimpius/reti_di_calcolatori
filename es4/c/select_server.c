@@ -22,6 +22,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <time.h>
 
 #define DIM_BUFF 100
 #define LENGTH_FILE_NAME 30
@@ -55,6 +56,10 @@ int main(int argc, char **argv){
 	struct sockaddr_in cliaddr, servaddr;
     FILE *fd_outudp, *fd_inudp;
     struct hostent *hostTCP, *hostUDP;
+
+
+    //testing var
+    clock_t sD,eD,sS,eS;
 
 	/* CONTROLLO ARGOMENTI ---------------------------------- */
 	if(argc!=2){
@@ -154,6 +159,8 @@ int main(int argc, char **argv){
             strcat(fileNout,dat.fileN);
             strcat(fileNout,"_out.txt");
 
+            sD=clock();
+
             fd_outudp=fopen(fileNout,"wt");
             if(!fd_outudp || !fd_inudp){
                 perror("Errore apertura file");
@@ -174,9 +181,10 @@ int main(int argc, char **argv){
                     fputc('\n',fd_outudp);
             }
 
+            eD=clock();
 
-
-            printf("Nel file %s sono state eliminate %d le occorrenze di %s\n",dat.fileN,ris,dat.word);
+            printf("Nel file %s sono state eliminate %d le occorrenze di %s in %f sec \n",dat.fileN,ris,dat.word
+                    ,(float)(eD-sD)/CLOCKS_PER_SEC);
 
             if(sendto(udpfd, &ris, sizeof(int),0,(struct sockaddr *)&cliaddr,len)<0){
                 perror("sendto");
@@ -210,6 +218,8 @@ int main(int argc, char **argv){
                 }
                 else
                     printf("Server (figlio) host client è %s\n",hostTCP->h_name);
+
+                sS=clock();
 
                 //Leggo richiesta del client
                 while((nread=read(connfd,dir,sizeof(dir)))>0){
@@ -256,8 +266,10 @@ int main(int argc, char **argv){
                     write(connfd,&r,sizeof(char));
                     printf("altra dir\n");
                 }//fine while read
+                eS=clock();
             //Free risorse
-			printf("Figlio TCP %i: chiudo connessione e termino\n", getpid());
+			printf("Figlio TCP %i: chiudo connessione e termino in %f sec\n", getpid()
+                    ,(float)(eS-sS)/CLOCKS_PER_SEC);
 			close(connfd);
 			exit(0);
 		}//figlio

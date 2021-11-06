@@ -1,4 +1,4 @@
-/* Server Select 
+/* Server Select
  * 	Un solo figlio per tutti i file.
  */
 
@@ -15,15 +15,18 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <time.h>
 
 #define DIM_BUFF 100
-#define LENGTH_FILE_NAME 4096
+#define LENGTH_FILE_NAME 20
+
 #define max(a,b) ((a) > (b) ? (a) : (b))
+
 
  /********************************************************/
 typedef struct {
-	char fileName[DIM_BUFF];
-	char parola[DIM_BUFF];
+	char fileName[30];
+	char parola[30];
  }FParola;
 
 /********************************************************/
@@ -35,13 +38,14 @@ void gestore(int signo){
 /********************************************************/
 
 int main(int argc, char **argv){
+    clock_t startDatagram, endDatagram, startStream, endStream;
 	int  tcpfd, connfd, udpfd, fd_file, nready, maxfdp1;
 	const int on = 1;
-	char zero=0, buff[DIM_BUFF], nome_file[LENGTH_FILE_NAME], nome_dir[LENGTH_FILE_NAME], word[LENGTH_FILE_NAME], ch;
+	char ch[2], nome_file[LENGTH_FILE_NAME], nome_dir[LENGTH_FILE_NAME], word[LENGTH_FILE_NAME];
 	fd_set rset;
-	int len, nread, nwrite, num, port, count=0;
+	int len, nread,  port, count=0;
 	struct sockaddr_in cliaddr, servaddr;
-	FParola fp;
+    FParola fparola;
 
 	/* CONTROLLO ARGOMENTI ---------------------------------- */
 	if(argc!=2){
@@ -139,21 +143,21 @@ int main(int argc, char **argv){
 				while((read(connfd, nome_dir, sizeof(nome_dir))) > 0)
 				{
 					printf("Richiesto dir %s\n", nome_dir);
-					
+
 					//provo ad aprirla per vedere se esiste
 					fd_dir= opendir(nome_dir);
 					//se non esiste torno un messaggio di errore
 					if (fd_dir==NULL){
-						printf("Directory inesistente\n"); 
+						printf("Directory inesistente\n");
 						write(connfd, "-1" , 1);
 					}
 					else{
 						//ciclo per ogni elemento dentro alla directory
-						while ((dd = readdir(fd_dir))!= NULL) 
+						while ((dd = readdir(fd_dir))!= NULL)
 						{
 							sprintf(path1, "%s/%s", nome_dir, dd->d_name);
 							//controllo se l'elemento è una directory
-							if ((fd_dir2 = opendir(path1))!=NULL && dd->d_name[0] != '.') 
+							if ((fd_dir2 = opendir(path1))!=NULL && dd->d_name[0] != '.')
 							{
 								printf("apertura di %s\n", dd->d_name);
 								//ciclo ogni elemento della sotto-directory
@@ -161,7 +165,7 @@ int main(int argc, char **argv){
 								{
 									sprintf(path2, "%s/%s", path1, dd2->d_name);
 									//controllo se l'elemento è un file
-									if ((fd_dir3 = opendir(path2))==NULL && dd2->d_name[0]!= '.') 
+									if ((fd_dir3 = opendir(path2))==NULL && dd2->d_name[0]!= '.')
 									{	//mando il nome del file al client
 										printf("Trovato il file %s\n", dd2->d_name);
 										write(connfd, dd2->d_name, strlen(dd2->d_name)+1);
@@ -192,15 +196,20 @@ int main(int argc, char **argv){
 
 		/* GESTIONE RICHIESTE DI ELIMINAZIONE PAROLA DATAGRAM------------------------------------------ */
 
+
 		if (FD_ISSET(udpfd, &rset)){
-			printf("Server: ricevuta richiesta di conteggio file\n");
+            int fdfd;
+            char buffer[DIM_BUFF]="";
+			printf("Server: ricevuta richiesta dell'eliminazione della parola\n");
 			len=sizeof(struct sockaddr_in);
-			if (recvfrom(udpfd, &fp, sizeof(FParola), 0, (struct sockaddr *)&cliaddr, &len)<0)
+
+            startDatagram=clock();
+			if (recvfrom(udpfd, &fparola, sizeof(FParola), 0, (struct sockaddr *)&cliaddr, &len)<0)
 			{perror("recvfrom"); continue;}
 
 
-			strcpy(nome_file,fp.fileName);
-			strcpy(word,fp.parola);
+			strcpy(nome_file,fparola.fileName);
+			strcpy(word,fparola.parola);
 
 			printf("Richiesta eliminazione della parola %s nel file %s\n", word, nome_file);
 
@@ -209,19 +218,35 @@ int main(int argc, char **argv){
 				count = -1;
 			}
 			else {
+                if((fdfd=open("temp", O_WRONLY|O_CREAT|O_TRUNC, 0644))<0)
+                    perror("open");
+
 				while ((read(fd_file, &ch, sizeof(char))) > 0) {
-					if (ch == ' ' || ch == '\n') {
-						if (strcmp(word, buff)==0)
-							count++;
-					}
-					else {
-						strcat(buff, &ch);
-					}
+
+					if (strcmp(ch, " ")==0 || strcmp(ch,"\n")==0 || strcmp(ch, ",")==0 || strcmp(ch,">>")==0) {
+						if (strcmp(word, buffer)==0){
+							count=count+1;
+                        }
+
+                       else{
+                            strcat(buffer, ch);
+//                         printf("Parola : %s, Count: %d\n", buffer, count);
+                        write(fdfd, &buffer, strlen(buffer)+1);
+                    }
+                        strcpy(buffer, "");
+                    }else
+					strcat(buffer, ch);
 				}
 			}
+			endDatagram=clock();
+			printf("Fine ricerca parola %s: numero di volte in cui c'è stato %d\n",word, count);
 
+            printf("Tempo di escuzione byte per byte: %f\n", (float)(endDatagram-startDatagram)/CLOCKS_PER_SEC);
 			if (sendto(udpfd, &count, sizeof(count), 0, (struct sockaddr *)&cliaddr, len)<0)
 			{perror("sendto"); continue;}
+
+            count=0;
+			printf("Ho inviato il numero di parole eliminate\n");
 
 		} /* fine gestione richieste di conteggio */
 	} /* ciclo for della select */
