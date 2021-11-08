@@ -9,7 +9,7 @@ Exercise number | Description | Consigned in (date)
 [1](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es1) | Connectionless socket in Java | 19/10/2021
 [2](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es2) | Connection oriented socket in Java | 26/10/2021
 [3](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es3) | Socket in C (for noob) | 02/11/2021
-[4](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es4) | Socket in C (pro version) |
+[4](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es4) | Socket in C (pro version) | 09/11/2021
 [5](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es5) | Quiz |
 [6](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es6) | Java RMI |
 [7](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es7) | Java RMI remote references |
