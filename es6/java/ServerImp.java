@@ -5,6 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.*;
 
 public class ServerImp extends UnicastRemoteObject implements RemOp{
+	
+	private static final long serialVersionUID = 1L;
 
 	// Costruttore
 		public ServerImp() throws RemoteException {
@@ -12,7 +14,7 @@ public class ServerImp extends UnicastRemoteObject implements RemOp{
 		}
 
 
-		public int conta_righe(String nomeF, int numw)throws IOException{
+		public int conta_righe(String nomeF, int numw)throws RemoteException{
         int res=0;
         BufferedReader buff;
         long start=0,end=0;//usato per controlli
@@ -45,7 +47,7 @@ public class ServerImp extends UnicastRemoteObject implements RemOp{
 
     }
 
-    public String elimina_riga(String nomeF, int nl)throws IOException{
+    public String elimina_riga(String nomeF, int nl)throws RemoteException{
         int att=1; //il file inizia a contare dalla linea 1
         String newN = nomeF.substring(0,(nomeF.length()-4))+"_mod.txt";
         String res=null;
