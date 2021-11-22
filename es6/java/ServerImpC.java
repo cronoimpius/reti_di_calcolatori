@@ -32,10 +32,10 @@ public class ServerImpC extends UnicastRemoteObject implements RemOp {
             while((i=buff.read())>=0){
                 ch=(char) i;
                 if(ch=='\n'){           //trovo il newline
-                    if(wc>=numw) res++;  //se il numero di parole contate supera il minimo aumento
+                    if(wc>numw) res++;  //se il numero di parole contate supera il minimo aumento
                     wc=0;               //setto a zero il counter delle parole per iniziare una nuova riga
                 }
-                if(ch==' ' || ch== ',' || ch=='.' || ch==':' ){ // aggiungere altri separatori di parole
+                if(ch==' ' || ch== ',' || ch=='.' || ch==':' || ch=='\n'){ // aggiungere altri separatori di parole
                     wc++;
                 }
             }

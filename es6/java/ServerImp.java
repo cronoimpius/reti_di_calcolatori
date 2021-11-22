@@ -30,7 +30,7 @@ public class ServerImp extends UnicastRemoteObject implements RemOp{
         try{
             while((line = buff.readLine())!=null){
                 String[] word = line.split("\\s+|,\\s*|\\.\\s*");
-                if(word.length>=numw)
+                if(word.length>numw && word!=null)
                     res++;
             }
         }catch(IOException e){
@@ -75,7 +75,7 @@ public class ServerImp extends UnicastRemoteObject implements RemOp{
         try{
 		    while((line=in.readLine())!=null){
                 if( att != nl) //se la linea non è quella da eliminare la scrivo
-                    out.write(line+"\n");
+                    out.write(line+'\n');
                 att++;
             }
 
@@ -89,7 +89,7 @@ public class ServerImp extends UnicastRemoteObject implements RemOp{
         if (att< nl){
             throw new RemoteException("Il file remoto ha "+att+" righe, deve averne almeno "+nl);
         }else{
-            res = newN+" "+Integer.toString(att);
+            res = newN+" "+Integer.toString(att-2);
         }
 
         return res;
