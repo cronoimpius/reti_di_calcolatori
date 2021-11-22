@@ -5,7 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.*;
 
 public class ServerImpC extends UnicastRemoteObject implements RemOp {
-	
+
 	private static final long serialVersionUID=1L;
 
 	// Costruttore
@@ -60,8 +60,12 @@ public class ServerImpC extends UnicastRemoteObject implements RemOp {
         char ch;
         long start=0,end=0;
         File temp = new File(newN);
-
-        BufferedWriter out= new BufferedWriter(new FileWriter(temp));
+        BufferedWriter out=null;
+        try{
+            out= new BufferedWriter(new FileWriter(temp));
+        }catch (IOException e){
+            throw new RemoteException(e.toString());
+        }
         BufferedReader in=null;
 
         try {
