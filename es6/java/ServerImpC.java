@@ -35,7 +35,7 @@ public class ServerImpC extends UnicastRemoteObject implements RemOp {
                     if(wc>=numw) res++;  //se il numero di parole contate supera il minimo aumento
                     wc=0;               //setto a zero il counter delle parole per iniziare una nuova riga
                 }
-                if(ch==' ' || ch== ',' || ch=='.' || ch=='\n' || ch==':' ){ // aggiungere altri separatori di parole
+                if(ch==' ' || ch== ',' || ch=='.' || ch==':' ){ // aggiungere altri separatori di parole
                     wc++;
                 }
             }
@@ -97,7 +97,7 @@ public class ServerImpC extends UnicastRemoteObject implements RemOp {
             if (att<nl){
                 throw new RemoteException("Il file remoto ho "+att+" righe, deve averne almento "+nl);
             }else{
-                res=newN+" "+Integer.toString(att);
+                res=newN+" "+Integer.toString(att-1);
             }
         }catch (IOException e){
             throw new RemoteException(e.toString());
