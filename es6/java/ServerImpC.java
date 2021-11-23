@@ -1,76 +1,79 @@
 import java.io.*;
+
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import java.rmi.registry.*;
 
 public class ServerImpC extends UnicastRemoteObject implements RemOp {
 
-	private static final long serialVersionUID=1L;
+	private static final long serialVersionUID = 1L;
 
-	// Costruttore
+		// Costruttore
 		public ServerImpC() throws RemoteException {
 			super();
 		}
 
 
 		public int conta_righe(String nomeF, int numw)throws RemoteException{
-        int res=0,i=0,wc=0;
-        BufferedReader buff;
-        char ch;
-        long start=0,end=0;//usato per controlli
+			int res=0,i=0,wc=0;
+	        BufferedReader buff;
+	        char ch;
+	        long start=0,end=0;//usato per controlli
 
-        try{
-            buff= new BufferedReader (new FileReader(nomeF));
-        }catch (FileNotFoundException e){
-            throw new RemoteException(e.toString());
-        }
-        System.out.println("Conto il numero di righe con almeno "+numw+" parole in "+nomeF +" \n");
+	        try{
+	            buff= new BufferedReader (new FileReader(nomeF));
+	        }catch (FileNotFoundException e){
+	            throw new RemoteException(e.toString());
+	        }
+	        System.out.println("Conto il numero di righe con almeno "+numw+" parole in "+nomeF +" \n");
 
-        start=System.currentTimeMillis();
-        try{
-            while((i=buff.read())>=0){
-                ch=(char) i;
-                if(ch=='\n'){           //trovo il newline
-                    if(wc>numw) res++;  //se il numero di parole contate supera il minimo aumento
-                    wc=0;               //setto a zero il counter delle parole per iniziare una nuova riga
-                }
-                if(ch==' ' || ch== ',' || ch=='.' || ch==':' || ch=='\n'){ // aggiungere altri separatori di parole
-                    wc++;
-                }
-            }
-        }catch(IOException e){
-            throw  new RemoteException(e.toString());
-        }
-        end=System.currentTimeMillis();
-        System.out.println("---Tempo impiegato server "+(end-start)+"---\n");
-        try{
-            buff.close();
-        }catch (IOException e){
-            throw new RemoteException(e.toString());
-        }
-        return res;
+	        start=System.currentTimeMillis();
+	        try{
+                boolean valid=true;
+	            while((i=buff.read())>=0){
+	                ch=(char) i;
+	                
+	                if(ch!='\n' && valid)
+	                	valid =false;
+	                
+	                if(ch==' ' || ch== ',' || ch=='.' || ch==':' || (!valid && ch=='\n')  ){ 
+	                    wc++;
+	                }
+	                if(ch=='\n'){ 
+	                	valid=true;
+	                	System.out.println(" Parole: "+wc+"\n");//trovo il newline
+	                    if(wc>numw) res++;//se il numero di parole contate supera il minimo aumento
+	                    wc=0;               //setto a zero il counter delle parole per iniziare una nuova riga
+	                }
+	            }
+	        }catch(IOException e){
+	            throw  new RemoteException(e.toString());
+	        }
+	        end=System.currentTimeMillis();
+	        System.out.println("---Tempo impiegato server "+(end-start)+"---\n");
+	        try{
+	            buff.close();
+	        }catch (IOException e){
+	            throw new RemoteException(e.toString());
+	        }
+	        return res;
+	        }
 
-    }
-
-    public String elimina_riga(String nomeF, int nl)throws RemoteException{
+    public synchronized String elimina_riga(String nomeF, int nl)throws RemoteException{
         int att=1,i; //il file inizia a contare dalla linea 1
         String newN = nomeF.substring(0,(nomeF.length()-4))+"_mod.txt";
         String res;
         char ch;
         long start=0,end=0;
         File temp = new File(newN);
-        BufferedWriter out=null;
-        try{
-            out= new BufferedWriter(new FileWriter(temp));
-        }catch (IOException e){
-            throw new RemoteException(e.toString());
-        }
+
+        BufferedWriter out;
         BufferedReader in=null;
 
         try {
             in = new BufferedReader (new FileReader(nomeF));
-        }catch (FileNotFoundException e){
+            out= new BufferedWriter(new FileWriter(temp));
+        }catch (IOException e){
             throw new RemoteException(e.toString());
         }
 
@@ -95,9 +98,9 @@ public class ServerImpC extends UnicastRemoteObject implements RemOp {
             in.close();
             out.close();
             if (att<nl){
-                throw new RemoteException("Il file remoto ho "+att+" righe, deve averne almento "+nl);
+                throw new RemoteException("Il file remoto ha "+att+" righe, deve averne almento "+nl);
             }else{
-                res=newN+" "+Integer.toString(att-1);
+                res=newN+" "+(att-1);
             }
         }catch (IOException e){
             throw new RemoteException(e.toString());
