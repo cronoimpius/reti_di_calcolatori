@@ -12,6 +12,6 @@ Exercise number | Description | Consigned in (date)
 [4](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es4) | Socket in C (pro version) | 09/11/2021
 [5](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es5) | Quiz | 17/11/2021
 [6](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es6) | Java RMI | 23/11/2021
-[7](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es7) | Java RMI remote references |
-[8](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es8) | RPC (Remote Procedure Call) |
-[9](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es9) | RPC initialize data structure on server |
+[7](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es7) | Java RMI remote references | 30/11/2021
+[8](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es8) | RPC (Remote Procedure Call) | 07/12/2021
+[9](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es9) | RPC initialize data structure on server | 14/11/2021
