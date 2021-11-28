@@ -23,10 +23,10 @@
 This is why is important to follow the order given : **RegistryRemoto->Server->Client**
 2. In **ALL** the folder must be present the *rmi.policy* file.
 3. For execute correctly the files in different folders follow the following steps [^1] :
-  - Execute the rmiregistry in RegistryRemoto folder;
-  - Start the RegistryRemoto in its folder;
-  - Start the Server/Servers in its/their folder;
-  - Execute the Client/Clients in its/their folder.
+    - Execute the rmiregistry in RegistryRemoto folder;
+    - Start the RegistryRemoto in its folder;
+    - Start the Server/Servers in its/their folder;
+    - Execute the Client/Clients in its/their folder.
   
 [^1]: When we execute all this programs from terminal we use java -Djava.security.policy=rmi.policy  
 for make the security manager recognise the security file.
