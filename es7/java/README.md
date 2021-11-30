@@ -18,7 +18,7 @@ After we will compile this .java for obtain .class files ( also Stub and Skeleto
 ## [<ins>Client</ins>](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es7/java/Client)
 1. Import the Stub created in RegistryRemoto folder;
 2. Import **ALL** the .class file of the interfaces used by RegistryRemoto;
-3. Import **ALL** the .class files of Servers used and interfaces related with them;
+3. Import **ALL** the .class files of Servers used and interfaces related with them includeing the Servers stub;
 4. Import the .java of Client (Clients) and interfaces used by them.  
 After we will compile this .java for obtain .class files;
 6. Import other classes used by methods and implemented by the programmer  
