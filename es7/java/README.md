@@ -3,7 +3,7 @@
 ## [<ins>RegistryRemoto</ins>](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es7/java/RegisrtyRemoto)
 1. Import **ALL** RegistryRemoto files ( also the stub and skeleton ), including also Interfaces files;
 2. Import the Server .class files, including also **ALL** the .class of Interfaces  
-used by the Server files;
+used by the Server files and Stub;
 4. Import other classes used by methods and implemented by the programmer  
 ( for example Programma.class used by the ServerCongresso ).
 
@@ -11,7 +11,7 @@ used by the Server files;
 1. Import the Stub created in RegistryRemoto folder;
 2. Import **ALL** the .class file of the interfaces used by RegistryRemoto;
 3. Import the .java of Server (Servers) and interfaces used by them.  
-After we will compile this .java for obtain .class files;
+After we will compile this .java for obtain .class files ( also Stub and Skeleton );
 5. Import other classes used by methods and implemented by the programmer  
 ( for example Programma.class used by the ServerCongresso ).
 
