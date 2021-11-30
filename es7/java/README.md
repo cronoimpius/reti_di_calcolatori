@@ -1,8 +1,6 @@
 # *How the files of Server/Client/RegistryRemoto were divided into the folders?*
 ---
 
-## [<ins>RegistryRemoto</ins>](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es7/java/RegisrtyRemoto)
-
 ## [<ins>RegistryRemoto</ins>](https://github.com/cronoimpius/reti_di_calcolatori/tree/main/es7/java/RegistryRemoto)
 
 1. Import **ALL** RegistryRemoto files ( also the stub and skeleton ), including also Interfaces files;
