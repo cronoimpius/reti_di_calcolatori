@@ -19,7 +19,7 @@ int main(int argc, char *argv[]){
         //definizione variabili per testing
     	clock_t start, end;
 
-	if (argc != 2)
+	if (argc != 2) 
 	{
 		fprintf(stderr, "uso: %s host \n", argv[0]);
 		exit(1);
@@ -27,8 +27,7 @@ int main(int argc, char *argv[]){
 
 	server = argv[1];
 	cl = clnt_create(server, OPFILEPROGRAM, OPFILEVERS, "tcp");
-
-	if (cl == NULL)
+	if (cl == NULL) 
 	{
 		clnt_pcreateerror(server);
 		exit(1);
@@ -55,20 +54,20 @@ int main(int argc, char *argv[]){
 
 			if(gets(input)==EOF)
 				break;
-
+			
 			fileName=input;
 			start=clock();
 			ris = file_scan_1(&fileName, cl);
 			end=clock();
 
-			if (ris == NULL)
+			if (ris == NULL) 
 			{
 				clnt_perror(cl, server);
 				printf("Errore nell'analisi del file.\n\n");
 				printf("Quale servizio vuoi utilizzare? (F= file scan, D= dir scan)\n");
 				continue;
 			}
-
+			
 			if(ris->nChar == -1)
 				printf("File not found.\n");
 			else{
@@ -91,7 +90,7 @@ int main(int argc, char *argv[]){
 			req->nomeDir=dir;
 
 			printf("Scegli una soglia minima: \n");
-
+			
 			if(gets(input)==EOF)
 				break;
 
@@ -114,7 +113,7 @@ int main(int argc, char *argv[]){
 			res = dir_scan_1(req, cl);
 			end=clock();
 
-			if (res == NULL)
+			if (res == NULL) 
 			{
 				clnt_perror(cl, server);
 				printf("Quale servizio vuoi utilizzare? (ctrl+D per terminare)\n");
