@@ -1,0 +1,6 @@
+/*
+  NOTE: questo serve per vedere come funziona nel caso te lo fossi dimenticato
+  rpcgen of the x file for generete the stubs;
+  gcc ...clnt.c ...client.c ..xdr.c -o client
+  gcc ...proc.c ...svc.c ...xdr.c -o server
+*/
